@@ -1,1 +1,33 @@
+/* Basic container styling */
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: sans-serif; /* Readable font */
+    line-height: 1.6;
+    color: #333; /* Dark text */
+}
 
+/* Specific styling for the privacy policy section */
+.privacy-policy h1 {
+    color: #007bff; /* A primary color for the heading */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.privacy-policy p {
+    margin-bottom: 15px;
+}
+
+.privacy-policy a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.privacy-policy a:hover {
+    text-decoration: underline;
+}
