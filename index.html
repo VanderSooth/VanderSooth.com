@@ -132,6 +132,33 @@
   <script>
     (function () {
       var WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwSaqYaVhLxUw1TvSOx0cQFeE9t5ISt1OxsDFtbzTxSNmTSbYeU2NggU-IyctOw41XsWw/exec";
+/* VS_UTM_ATTRIBUTION_V1 */
+      function readUtmParams() {
+        var params = new URLSearchParams(window.location.search);
+        var keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
+        var defaults = {
+          utm_source: "direct",
+          utm_medium: "none",
+          utm_campaign: "none",
+          utm_content: "none"
+        };
+        var out = {};
+        var i = 0;
+        while (i < keys.length) {
+          var k = keys[i];
+          var val = params.get(k);
+          if (val && val.trim() !== "") {
+            sessionStorage.setItem("vs_" + k, val.trim());
+            out[k] = val.trim();
+          } else {
+            var saved = sessionStorage.getItem("vs_" + k);
+            out[k] = (saved && saved.trim() !== "") ? saved.trim() : defaults[k];
+          }
+          i = i + 1;
+        }
+        return out;
+      }
+      var utmData = readUtmParams();
       var form = document.getElementById("signup-form");
       var emailInput = document.getElementById("email-input");
       var honeypotInput = document.getElementById("website_url");
@@ -157,6 +184,11 @@
         payload.append("email", emailValue);
         payload.append("website_url", honeypotInput.value);
         payload.append("source", "vandersooth.com");
+        payload.append("utm_source", utmData.utm_source);
+        payload.append("utm_medium", utmData.utm_medium);
+        payload.append("utm_campaign", utmData.utm_campaign);
+        payload.append("utm_content", utmData.utm_content);
+
 
         fetch(WEBHOOK_URL, {
           method: "POST",
